@@ -7,3 +7,12 @@ services:
       - "5000:5000"
     volumes:
       - .:/app
+
+
+#  unittests:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    # Настройка для контейнера, в котором будут запускаться тесты
+#    command: ["pytest"]
+#    # В этой строке нужно удалить зависимость от сервиса app
