@@ -10,6 +10,9 @@ COPY requirements.txt .
 # Устанавливаем зависимости
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Установка pytest с параметром --user
+RUN pip install pytest --user
+
 # Копируем остальные файлы в контейнер
 COPY . .
 
