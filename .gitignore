@@ -1,4 +1,7 @@
 /.venv
 Credentials
 /.idea
-service/__pycache__/Comparer.cpython-38.pyc
+Config.py
+Service/__pycache__/
+test/__pycache__/
+__pycache__/
