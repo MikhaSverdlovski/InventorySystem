@@ -10,3 +10,7 @@ with SqlConnectorService(db_connect) as cursor:
     data = cursor.fetchall()
 
 print(data)
+
+with SqlConnectorService(db_connect) as cursor:
+    _SQL = """INSERT INTO users (login, passw_hash, salt) VALUES (%s, %s, %s)"""
+    cursor.execute(_SQL, ('Mikhail', 234234, 54,))
