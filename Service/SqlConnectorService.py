@@ -2,7 +2,6 @@ import mysql.connector
 
 
 class SqlConnectorService:
-    # TODO: Переписать нормально с менеджером контекста
 
     def __init__(self, connection: dict) -> None:
         self.configuration = connection
