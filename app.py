@@ -1,61 +1,56 @@
 import hashlib
 import os
-from flask import Flask, request, redirect, url_for, render_template
-from Config import db_connect
+from flask import Flask, request, redirect, url_for, render_template, session
+from Config import db_connect, secret_key
 from Service.SqlConnectorService import SqlConnectorService
+from security.Security import registration, check_password, check_logged_in
 
 app = Flask(__name__)
+app.secret_key = secret_key
 
 
 @app.route('/', methods=['GET', 'POST'])
 def login_or_register():
+    if session.get('logged_in'):
+        return redirect(url_for('main_page'))
     if request.method == 'POST':
         if request.form['submit_button'] == 'Войти':
-            # Обработка события для кнопки "Войти"
-            # Здесь можно добавить вашу логику для входа пользователя
-            return redirect(url_for('login'))
+            if check_password(request.form['username'], request.form['password']):
+                return redirect(url_for('main_page'))
+            return render_template("registration.html")
         elif request.form['submit_button'] == 'Зарегистрироваться':
-            # Обработка события для кнопки "Зарегистрироваться"
-            # Здесь можно добавить вашу логику для перехода на страницу регистрации
-            return redirect(url_for('register'))
+            return render_template("registration.html")
     return render_template('login.html')
 
 
 @app.route('/login')
-# Скорее всего не понадобиться. Редиректить будем вовнутрь проекта
-def login():
+@check_logged_in
+def main_page():
     # Здесь можно добавить вашу логику для страницы входа
     return "Страница входа"
 
 
-@app.route('/register')
-def register():
-    return render_template("registration.html")
+@app.route('/another')
+@check_logged_in
+def another():
+    """Просто для демонстрации вторая страница для залогированных"""
+    return 'another page'
+
+
+@app.route('/logout')
+@check_logged_in
+def logout():
+    """Разлогиниться.
+    TODO Добавить потом сюда переброс на страницу входа"""
+    session.pop('logged_in')
+    return "You are now logged_out"
 
 
 @app.route('/register_confirm', methods=['POST'])
 def register_confirm():
-    # TODO: не работает подключение к БД в докере, поправить
-    try:
-        if request.form['submit_button'] == 'Зарегистрироваться':
-            username = request.form['username']
-            email = request.form['email']
-            password = request.form['password']
-
-            # Генерация соли
-            salt = os.urandom(32).hex()
-
-            # Хеширование пароля с солью
-            password_hash = hashlib.sha256((password + salt).encode()).hexdigest()
-
-            # Создание нового пользователя
-            with SqlConnectorService(db_connect) as cursor:
-                _SQL = """INSERT INTO users (login, passw_hash, salt) VALUES (%s, %s, %s)"""
-                cursor.execute(_SQL, (username, password_hash, salt))
-
-            return "Success"
-    except Exception as e:
-        return f"Error: {e}"
+    """Метод для регистрации нового пользователя (Сохранение в базу)"""
+    registration()
+    return redirect(url_for('login_or_register'))
 
 
 if __name__ == '__main__':
