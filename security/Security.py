@@ -9,25 +9,20 @@ from Config import db_connect
 from Service.SqlConnectorService import SqlConnectorService
 
 
-def registration() -> str:
+def registration(username, email, password) -> str:
     try:
-        if request.form['submit_button'] == 'Зарегистрироваться':
-            username = request.form['username']
-            email = request.form['email']
-            password = request.form['password']
+        # Генерация соли
+        salt = os.urandom(32).hex()
 
-            # Генерация соли
-            salt = os.urandom(32).hex()
+        # Хеширование пароля с солью
+        password_hash = hashlib.sha256((password + salt).encode()).hexdigest()
 
-            # Хеширование пароля с солью
-            password_hash = hashlib.sha256((password + salt).encode()).hexdigest()
+        # Создание нового пользователя
+        with SqlConnectorService(db_connect) as cursor:
+            _SQL = """INSERT INTO users (login, passw_hash, salt, email) VALUES (%s, %s, %s, %s)"""
+            cursor.execute(_SQL, (username, password_hash, salt, email))
 
-            # Создание нового пользователя
-            with SqlConnectorService(db_connect) as cursor:
-                _SQL = """INSERT INTO users (login, passw_hash, salt, email) VALUES (%s, %s, %s, %s)"""
-                cursor.execute(_SQL, (username, password_hash, salt, email))
-
-            return "Success"
+        return "Success"
     except Exception as e:
         return f"Error: {e}"
 

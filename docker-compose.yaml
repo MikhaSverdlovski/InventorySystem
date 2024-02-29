@@ -10,6 +10,7 @@ services:
     networks:
       mynetwork:
         ipv4_address: 172.25.0.3
+    tty: true  # добавляем параметр для включения tty
 
   db:
     image: mysql:latest
@@ -21,6 +22,20 @@ services:
     networks:
       mynetwork:
         ipv4_address: 172.25.0.2
+
+  unittests:
+    build: .
+    command: ["pytest"]
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - web
+    networks:
+      mynetwork:
+        ipv4_address: 172.25.0.4
+    environment:
+      PYTHONPATH: "${PYTHONPATH}:/app"
 
 networks:
   mynetwork:

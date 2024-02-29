@@ -3,7 +3,7 @@ Credentials
 /.idea
 Config.py
 Service/__pycache__/
-test/__pycache__/
+tests/__pycache__/
 **/__pycache__/
 __pycache__/
 *.pyc

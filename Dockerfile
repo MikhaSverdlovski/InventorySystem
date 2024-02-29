@@ -16,6 +16,7 @@ RUN pip install pytest --user
 # Копируем остальные файлы в контейнер
 COPY . .
 
+
 # Копирование файлов в контейнер
 COPY templates /app/templates
 COPY static /app/static

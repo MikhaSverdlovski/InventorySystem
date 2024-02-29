@@ -1,8 +1,5 @@
-import hashlib
-import os
 from flask import Flask, request, redirect, url_for, render_template, session
-from Config import db_connect, secret_key
-from Service.SqlConnectorService import SqlConnectorService
+from Config import secret_key
 from security.Security import registration, check_password, check_logged_in
 
 app = Flask(__name__)
@@ -49,7 +46,10 @@ def logout():
 @app.route('/register_confirm', methods=['POST'])
 def register_confirm():
     """Метод для регистрации нового пользователя (Сохранение в базу)"""
-    registration()
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    registration(username, email, password)
     return redirect(url_for('login_or_register'))
 
 
