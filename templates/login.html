@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FuncTools</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mystyle.css') }}">
+</head>
+<body>
+<div class="login-container">
+    <h2>Авторизация</h2>
+    <form action="{{ url_for('login_or_register') }}" method="post">
+        <input type="text" name="username" placeholder="Имя пользователя">
+        <input type="password" name="password" placeholder="Пароль">
+        <input type="submit" name="submit_button" value="Войти">
+        <input type="submit" name="submit_button" value="Зарегистрироваться">
+    </form>
+</div>
+</body>
+</html>
