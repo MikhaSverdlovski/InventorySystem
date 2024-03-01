@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template, session
 from Config import secret_key
-from security.Security import registration, check_password, check_logged_in
+from security.Security import Security
 
 app = Flask(__name__)
 app.secret_key = secret_key
@@ -12,7 +12,7 @@ def login_or_register():
         return redirect(url_for('main_page'))
     if request.method == 'POST':
         if request.form['submit_button'] == 'Войти':
-            if check_password(request.form['username'], request.form['password']):
+            if Security.check_password(request.form['username'], request.form['password']):
                 return redirect(url_for('main_page'))
             return render_template("registration.html")
         elif request.form['submit_button'] == 'Зарегистрироваться':
@@ -21,21 +21,21 @@ def login_or_register():
 
 
 @app.route('/login')
-@check_logged_in
+@Security.check_logged_in
 def main_page():
     # Здесь можно добавить вашу логику для страницы входа
     return "Страница входа"
 
 
 @app.route('/another')
-@check_logged_in
-def another():
+@Security.check_logged_in
+def another_page():
     """Просто для демонстрации вторая страница для залогированных"""
     return 'another page'
 
 
 @app.route('/logout')
-@check_logged_in
+@Security.check_logged_in
 def logout():
     """Разлогиниться.
     TODO Добавить потом сюда переброс на страницу входа"""
@@ -49,7 +49,7 @@ def register_confirm():
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
-    registration(username, email, password)
+    Security.registration(username, email, password)
     return redirect(url_for('login_or_register'))
 
 
