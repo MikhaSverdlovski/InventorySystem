@@ -1,3 +1,6 @@
+/*Стили для логина и регистрации
+----------------------------------
+*/
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -7,22 +10,26 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
+}
 
-  .login-container {
+a {
+    text-decoration: none; /* Убираем подчеркивание у всех ссылок */
+}
+
+.login-container {
     background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 300px;
-  }
+}
 
-  .login-container h2 {
+.login-container h2 {
     text-align: center;
-  }
+}
 
-  .login-container input[type="text"],
-  .login-container input[type="password"] {
+.login-container input[type="text"],
+.login-container input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -30,9 +37,9 @@ body {
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box;
-  }
+}
 
-  .login-container input[type="submit"] {
+.login-container input[type="submit"] {
     width: 100%;
     background-color: #4caf50;
     color: white;
@@ -42,40 +49,138 @@ body {
     cursor: pointer;
     margin: 4px auto;
     transition: background-color 0.3s ease;
-  }
+}
 
-  .login-container input[type="submit"]:hover {
+.login-container input[type="submit"]:hover {
     background-color: #368639;
-  }
-
-
-  /* Общие стили для шапки */
-header {
-    background-color: #333; /* Цвет фона */
-    color: #fff; /* Цвет текста */
-    padding: 10px 0; /* Внутренний отступ */
-    text-align: center; /* Выравнивание текста по центру */
 }
 
-/* Стили для меню */
-nav {
-    background-color: #555; /* Цвет фона меню */
-    color: #fff; /* Цвет текста меню */
-    padding: 10px 0; /* Внутренний отступ */
-    text-align: center; /* Выравнивание текста по центру */
+
+/* Общие стили для шапки
+---------------------------*/
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 98%;
+    z-index: 1000; /* Чтобы шапка была поверх других элементов */
+    background-color: #ffffff; /* Цвет фона шапки */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Добавим тень для выделения */
+    margin-top: 4px;
 }
 
-nav ul {
-    list-style-type: none; /* Убираем маркеры списка */
-    padding: 0; /* Убираем внутренний отступ списка */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Отступы для контейнера навигации */
 }
 
-nav ul li {
-    display: inline; /* Отображаем пункты меню в одну линию */
-    margin-right: 20px; /* Внешний отступ между пунктами меню */
+.logo {
+    font-size: 24px; /* Размер логотипа */
+    color: #333333; /* Цвет текста логотипа */
 }
 
-nav ul li a {
-    color: #fff; /* Цвет текста ссылок */
-    text-decoration: none; /* Убираем подчеркивание у ссылок */
+.menu {
+    list-style-type: none; /* Убираем маркеры у списка */
+    margin: 0;
+    padding: 0;
 }
+
+.menu li {
+    display: inline-block; /* Элементы меню располагаются горизонтально */
+    margin-right: 20px; /* Отступ между пунктами меню */
+}
+
+.menu li a {
+    color: #333333; /* Цвет текста ссылок в меню */
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    transition: color 0.5s; /* Анимация изменения цвета текста */
+}
+
+.menu li a:hover {
+    color: #4caf50; /* Цвет текста ссылок при наведении */
+}
+
+.logout-button {
+    /* Стили для кнопки выхода */
+    padding: 8px 12px;
+    background-color: #4caf50; /* Красный цвет кнопки */
+    color: #ffffff; /* Белый цвет текста кнопки */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    /* Стили для кнопки выхода */
+    padding: 8px 12px;
+    background-color: #368639; /* Красный цвет кнопки */
+    color: #ffffff; /* Белый цвет текста кнопки */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/*
+Стили для всплывашки
+ */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 999;
+}
+
+.popup:target {
+    display: block;
+}
+
+.popup form input[type="text"],
+.popup form input[type="submit"],
+.popup form textarea
+{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.popup form input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup form input[type="submit"]:hover {
+    background-color: #368639;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.overlay:target {
+    display: block;
+}
+

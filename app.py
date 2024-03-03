@@ -23,24 +23,20 @@ def login_or_register():
 @app.route('/login')
 @Security.check_logged_in
 def main_page():
-    # Здесь можно добавить вашу логику для страницы входа
     return render_template('main.html')
 
 
-@app.route('/another')
+@app.route('/statistics')
 @Security.check_logged_in
 def another_page():
-    """Просто для демонстрации вторая страница для залогированных"""
-    return 'another page'
+    return render_template('statictics.html')
 
 
 @app.route('/logout')
 @Security.check_logged_in
 def logout():
-    """Разлогиниться.
-    TODO Добавить потом сюда переброс на страницу входа"""
     session.pop('logged_in')
-    return "You are now logged_out"
+    return redirect(url_for('main_page'))
 
 
 @app.route('/register_confirm', methods=['POST'])
