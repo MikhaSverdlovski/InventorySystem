@@ -47,3 +47,35 @@ body {
   .login-container input[type="submit"]:hover {
     background-color: #368639;
   }
+
+
+  /* Общие стили для шапки */
+header {
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 10px 0; /* Внутренний отступ */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+/* Стили для меню */
+nav {
+    background-color: #555; /* Цвет фона меню */
+    color: #fff; /* Цвет текста меню */
+    padding: 10px 0; /* Внутренний отступ */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+nav ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем внутренний отступ списка */
+}
+
+nav ul li {
+    display: inline; /* Отображаем пункты меню в одну линию */
+    margin-right: 20px; /* Внешний отступ между пунктами меню */
+}
+
+nav ul li a {
+    color: #fff; /* Цвет текста ссылок */
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+}

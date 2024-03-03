@@ -24,7 +24,7 @@ def login_or_register():
 @Security.check_logged_in
 def main_page():
     # Здесь можно добавить вашу логику для страницы входа
-    return "Страница входа"
+    return render_template('main.html')
 
 
 @app.route('/another')
