@@ -20,7 +20,10 @@ def check_password(password: str, user: str) -> bool:
         _SQL = """SELECT salt, passw_hash FROM users WHERE login = %s"""
         cursor.execute(_SQL, (user,))
         result = cursor.fetchone()
-    hashed_password = hashlib.sha256((password + str(result[0])).encode()).hexdigest()
+    if result is None:
+        return False
+    else:
+        hashed_password = hashlib.sha256((password + str(result[0])).encode()).hexdigest()
     return hashed_password == result[1]
 
 

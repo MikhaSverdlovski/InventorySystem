@@ -32,9 +32,15 @@ class Security:
             _SQL = """SELECT salt, passw_hash FROM users WHERE login = %s"""
             cursor.execute(_SQL, (user,))
             result = cursor.fetchone()
-        hashed_password = hashlib.sha256((password + str(result[0])).encode()).hexdigest()
-        session['logged_in'] = True
-        return hashed_password == result[1]
+        if result is None:
+            return False
+        else:
+            hashed_password = hashlib.sha256((password + str(result[0])).encode()).hexdigest()
+        if hashed_password == result[1]:
+            session['logged_in'] = True
+            return True
+        else:
+            return False
 
     @staticmethod
     def check_logged_in(func):
