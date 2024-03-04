@@ -1,10 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="">
-Добро пожаловать на портал Оружие России
+<div class="weapons-container">
+<!--TODO: Потом убрать, разобравшись со стилями -->
+    <br>
+    <br>
+<br>
+    <div class="weapons-gallery">
+        <table>
+            <tr>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Тип</th>
+                <th>Производитель</th>
+                <th>Год выпуска</th>
+                <th>Страна производства</th>
+                <th>Цена</th>
+                <th>Количество в наличии</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.type }}</td>
+                <td>{{ item.manufacturer }}</td>
+                <td>{{ item.year }}</td>
+                <td>{{ item.country }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
-
-
-
 {% endblock %}
