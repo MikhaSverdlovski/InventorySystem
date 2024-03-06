@@ -207,7 +207,7 @@ a {
 }
 
 .weapons-container {
-    margin-top: 0; /* Убираем верхний отступ */
+    margin-top: 45px; /* Убираем верхний отступ */
     max-width: max-content;
     padding: 15px;
     margin-left: auto; /* Размещаем контейнер слева */
@@ -236,3 +236,12 @@ a {
     background-color: #f5f5f5;
 }
 
+.article {
+    margin-top: 25px; /* Убираем верхний отступ */
+    max-width: max-content;
+    padding: 15px;
+    margin-left: auto; /* Размещаем контейнер слева */
+    margin-right: auto; /* и справа */
+    align-self: flex-start;
+    display: block; /* Делаем блочный элемент */
+}

@@ -30,3 +30,20 @@ class DbActions:
         except Exception as e:
             print("Ошибка при получении элементов из базы данных:", e)
             return []
+
+    @staticmethod
+    def get_articles() -> list:
+        """Получить элементы из таблицы со статьями"""
+        try:
+            with SqlConnectorService(db_connect) as cursor:
+                _SQL = """SELECT * FROM articles"""
+                cursor.execute(_SQL)
+                columns = [column[0] for column in cursor.description]  # Получаем имена столбцов
+                items = []
+                for row in cursor.fetchall():
+                    item = dict(zip(columns, row))  # Создаем словарь из имен столбцов и значений строки
+                    items.append(item)
+            return items
+        except Exception as e:
+            print("Ошибка при получении элементов из базы данных:", e)
+            return []

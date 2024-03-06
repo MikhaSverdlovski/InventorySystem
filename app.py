@@ -34,6 +34,13 @@ def another_page():
     return render_template('statictics.html')
 
 
+@app.route('/articles')
+@Security.check_logged_in
+def articles():
+    articles = DbActions.get_articles()
+    return render_template('articles.html', articles = articles)
+
+
 @app.route('/logout')
 @Security.check_logged_in
 def logout():
