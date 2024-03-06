@@ -143,7 +143,7 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #d58b75;
     border: 1px solid #ccc;
     border-radius: 5px;
     z-index: 999;
@@ -212,6 +212,7 @@ a {
     padding: 15px;
     margin-left: auto; /* Размещаем контейнер слева */
     margin-right: auto; /* и справа */
+    align-self: flex-start;
     display: block; /* Делаем блочный элемент */
 }
 
