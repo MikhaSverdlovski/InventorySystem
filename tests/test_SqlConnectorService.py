@@ -20,3 +20,5 @@ class TestSqlService:
         with SqlConnectorService(db_connect) as cursor:
             # Проверяем, что курсор не равен None
             assert cursor is not None
+
+

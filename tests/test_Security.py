@@ -3,6 +3,7 @@ from Config import db_connect
 from Service.SqlConnectorService import SqlConnectorService
 from security.Security import Security
 
+
 class TestRegistration:
     @pytest.fixture(scope='class')
     def db_connection(self):
@@ -17,13 +18,9 @@ class TestRegistration:
             _SQL = """delete from users where email = 'qweqweqwe'"""
             cursor.execute(_SQL)
 
-    def test_registration_success(self):
-        username = 'qweqweqwwe'
-        email = 'qweqweqwe'
-        password = 'qweqweqweqwe'
+    @pytest.mark.parametrize("username, email, password",
+                             [("qweqweqwe", "qweqweqwe", "qweqweqweqwe"),
+                              ]
+                             )
+    def test_registration(self, username, email, password):
         assert Security.registration(username, email, password) == 'Success'
-
-    def test_registration_failed(self):
-        """TODO Продумать какой тест"""
-        pass
-

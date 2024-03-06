@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template, session
 from Config import secret_key
+from Service.DbActions import DbActions
 from security.Security import Security
 
 app = Flask(__name__)
@@ -23,24 +24,21 @@ def login_or_register():
 @app.route('/login')
 @Security.check_logged_in
 def main_page():
-    # Здесь можно добавить вашу логику для страницы входа
-    return render_template('main.html')
+    items = DbActions.get_items()  # Получаем данные из БД
+    return render_template('main.html', items=items)
 
 
-@app.route('/another')
+@app.route('/statistics')
 @Security.check_logged_in
 def another_page():
-    """Просто для демонстрации вторая страница для залогированных"""
-    return 'another page'
+    return render_template('statictics.html')
 
 
 @app.route('/logout')
 @Security.check_logged_in
 def logout():
-    """Разлогиниться.
-    TODO Добавить потом сюда переброс на страницу входа"""
     session.pop('logged_in')
-    return "You are now logged_out"
+    return redirect(url_for('main_page'))
 
 
 @app.route('/register_confirm', methods=['POST'])
@@ -51,6 +49,22 @@ def register_confirm():
     password = request.form['password']
     Security.registration(username, email, password)
     return redirect(url_for('login_or_register'))
+
+
+@app.route('/add_item', methods=['POST'])
+@Security.check_logged_in
+def add_item():
+    item_name = request.form['name_gun']
+    item_descr = request.form['descr_gun']
+    type_item = request.form['gun_type']
+    manufacturer = request.form['manufacturer']
+    year = request.form['year']
+    country = request.form['country']
+    price = request.form['price']
+    quantity = request.form['quantity']
+    image = request.form['image']
+    DbActions.add_item(item_name, item_descr, type_item, manufacturer, year, country, price, quantity)
+    return render_template('main.html')
 
 
 if __name__ == '__main__':

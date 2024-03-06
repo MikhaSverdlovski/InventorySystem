@@ -3,18 +3,59 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FuncTools</title>
+    <title>InventorySystem</title>
     <link rel="stylesheet" href="static/mystyle.css">
 </head>
 <body>
+<nav class="sticky">
+    <div class="nav-container">
+        <div class="logo"><a href="/">Оружие России</a></div>
+        <ul class="menu">
+            <li><a href="/">Каталог</a></li>
+            <li><a href="/statistics">Статистика</a></li>
+            <li><a href="#">Third</a></li>
+        </ul>
+        <div>
+            <a href="#popup1" class="add-button">Добавить</a></li>
+            <a href="/logout" class="logout-button">Выйти</a>
+        </div>
+    </div>
+</nav>
 
 
 
-{% block content %}{% endblock %}
 
-<footer>
-    <p>FuncTools - 2024</p>
-</footer>
+{% block content %}
+{% endblock %}
+
+
+
+
+<!--Тут всплывашка для ввода новых позиций в БД -->
+<div id="popup1" class="popup">
+    <h2>Добавить элемент</h2>
+    <form action="/add_item" method="post">
+        <input type="text" name="name_gun" placeholder="Название оружия" required>
+        <textarea name="descr_gun" placeholder="Описание" rows="4" required></textarea>
+        <select name="gun_type" required>
+            <option value="" disabled selected>Выберите тип оружия</option>
+            <option value="Пистолет">Пистолет</option>
+            <option value="Автомат">Автомат</option>
+            <option value="Винтовка">Винтовка</option>
+        </select>
+        <input type="text" name="manufacturer" placeholder="Производитель" required>
+        <input type="text" name="year" placeholder="Год производства">
+        <input type="text" name="country" placeholder="Страна производства" required>
+        <input type="text" name="price" placeholder="Цена" required>
+        <input type="text" name="quantity" placeholder="Количество">
+        <input type="text" name="image" placeholder="Картинка" required>
+        <input type="submit" name="submit" value="Добавить элемент">
+    </form>
+    <a href="#close">Закрыть</a>
+</div>
+<div id="overlay1" class="overlay"></div>
+<!--Конец всплывашки-->
+
 
 </body>
 </html>
