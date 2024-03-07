@@ -13,10 +13,11 @@
                 <th>Страна производства</th>
                 <th>Цена</th>
                 <th>Количество в наличии</th>
+                <th>Редактировать</th> <!-- Новая колонка -->
             </tr>
             {% for item in items %}
             <tr>
-                <td>{{ item.name }} </td>
+                <td>{{ item.name }}</td>
                 <td>{{ item.description }}</td>
                 <td>{{ item.type }}</td>
                 <td>{{ item.manufacturer }}</td>
@@ -24,9 +25,38 @@
                 <td>{{ item.country }}</td>
                 <td>{{ item.price }}</td>
                 <td>{{ item.quantity }}</td>
+                <td><button onclick="editItem('{{ item.id }}')">Редактировать</button></td> <!-- Добавлено -->
             </tr>
             {% endfor %}
         </table>
     </div>
 </div>
+
+
+
+<div id="editPopup" class="popup">
+    <h2>Редактировать элемент</h2>
+    <form id="editForm" action="/edit_item" method="post">
+        <input type="hidden" name="item_id" id="editItemId">
+        <input type="text" name="name_gun" id="editName" placeholder="Название оружия" required>
+        <textarea name="descr_gun" id="editDescription" placeholder="Описание" rows="4" required></textarea>
+        <select name="gun_type" id="editType" required>
+            <option value="" disabled selected>Выберите тип оружия</option>
+            <option value="Пистолет">Пистолет</option>
+            <option value="Автомат">Автомат</option>
+            <option value="Винтовка">Винтовка</option>
+        </select>
+        <input type="text" name="manufacturer" id="editManufacturer" placeholder="Производитель" required>
+        <input type="text" name="year" id="editYear" placeholder="Год производства">
+        <input type="text" name="country" id="editCountry" placeholder="Страна производства" required>
+        <input type="text" name="price" id="editPrice" placeholder="Цена" required>
+        <input type="text" name="quantity" id="editQuantity" placeholder="Количество">
+        <input type="text" name="image" id="editImage" placeholder="Картинка">
+        <input type="submit" name="submit" value="Сохранить изменения">
+    </form>
+    <a href="#close" onclick="closeEditPopup()">Закрыть</a>
+</div>
+<div id="overlay" class="overlay" onclick="closeEditPopup()"></div>
+
+
 {% endblock %}
