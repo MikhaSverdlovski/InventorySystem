@@ -237,11 +237,12 @@ a {
 }
 
 .article {
-    margin-top: 25px; /* Убираем верхний отступ */
+    margin-top: 30px; /* Убираем верхний отступ */
     max-width: max-content;
     padding: 15px;
     margin-left: auto; /* Размещаем контейнер слева */
     margin-right: auto; /* и справа */
     align-self: flex-start;
+    justify-content: center;
     display: block; /* Делаем блочный элемент */
 }
