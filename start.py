@@ -1,23 +1,10 @@
-import hashlib
+import subprocess
 
-from Service.DbActions import DbActions
-from Service.SqlConnectorService import SqlConnectorService
-from Config import db_connect
+# Параметры подключения к базе данных
+db_connect = {'host': '172.25.0.2', 'user': 'root', 'password': 'пароль', 'database': 'Inventory'}
 
-#TODO: Потом вообще убрать это
-"""Тестовый файл для теста коннекта к БД"""
+# Формирование команды для создания дампа
+command = f"mysqldump -h {db_connect['host']} -u {db_connect['user']} -p{db_connect['password']} {db_connect['database']} > dump.sql"
 
-
-def get_item(item_id: int) -> list:
-    """Получить все элементы из таблицы со статьями"""
-    try:
-        with SqlConnectorService(db_connect) as cursor:
-            _SQL = """SELECT * FROM item where id = %s"""
-            cursor.execute(_SQL, (item_id,))
-            item = cursor.fetchone()
-            return item
-    except Exception as e:
-        print("Ошибка при получении элементов из базы данных:", e)
-        return []
-
-print(get_item(21))
+# Выполнение команды
+subprocess.run(command, shell=True)
